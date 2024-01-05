@@ -1,27 +1,13 @@
-import { AccessProfiles } from '@/modules/common/shared/constants/access-profiles';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsBoolean,
   IsEmail,
-  IsEnum,
   IsNotEmpty,
   IsOptional,
+  IsPhoneNumber,
   IsString,
-  IsUUID
 } from 'class-validator';
 
 export class CreateUserDTO {
-  @ApiProperty({
-    title: "access_profile",
-    required: true,
-    type: AccessProfiles,
-    enum: AccessProfiles
-  })
-  @IsNotEmpty()
-  @IsEnum(AccessProfiles)
-  access_profile: AccessProfiles;
-
   @ApiProperty({
     title: "email",
     required: true,
@@ -30,15 +16,6 @@ export class CreateUserDTO {
   @IsNotEmpty()
   @IsEmail()
   email: string;
-
-  @ApiPropertyOptional({
-    title: "email_signature",
-    required: false,
-    type: String
-  })
-  @IsOptional()
-  @IsString()
-  email_signature?: string;
 
   @ApiProperty({
     title: "name",
@@ -59,39 +36,13 @@ export class CreateUserDTO {
   middle_name: string;
 
   @ApiProperty({
-    title: "position",
-    required: true,
-    type: String
-  })
-  @IsNotEmpty()
-  @IsString()
-  position: string;
-
-  @ApiPropertyOptional({
-    title: "squad_id",
+    title: "phone",
     required: false,
     type: String
   })
   @IsOptional()
-  @IsUUID()
-  @Transform((prop) => (prop?.value ? prop.value : null))
-  squad_id?: string;
-
-  @ApiProperty({
-    title: "whatsapp_business",
-    required: true,
-    type: String
-  })
-  @IsNotEmpty()
+  @IsPhoneNumber('BR')
   @IsString()
-  whatsapp_business: string;
+  phone: string;
 
-  @ApiPropertyOptional({
-    title: "is_active",
-    required: false,
-    type: Boolean
-  })
-  @IsOptional()
-  @IsBoolean()
-  is_active?: boolean;
 }

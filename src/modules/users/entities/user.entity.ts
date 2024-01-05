@@ -1,5 +1,4 @@
-import { AccessProfiles } from '@/modules/common/shared/constants/access-profiles';
-import { DefaultEntity } from '@/modules/common/shared/entities';
+import { DefaultEntity } from '@/modules/common/shared/entities/default.entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity({
@@ -16,26 +15,6 @@ export class User extends DefaultEntity {
 
   @Column()
   middle_name: string;
-
-  @Column()
-  position: string;
-
-  @Column({
-    nullable: true
-  })
-  email_signature: string;
-
-  @Column()
-  whatsapp_business: string;
-
-  @Column({ default: false })
-  can_edit_vacancy?: boolean;
-
-  @Column({
-    type: 'enum',
-    enum: AccessProfiles
-  })
-  access_profile: AccessProfiles;
 
   @Column({ default: true })
   is_active: boolean;
